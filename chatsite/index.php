@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat PAW</title>
+    <!-- white-space ini diperlukan, kalau tidak nanti chatnya langsung ke sampingnya -->
+    <style>
+        #chat-box {
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
 <body>
     <div>
-        
-        <div>
-            <h2>Chat Sederhana</h2>
+
+        <div id="chat-box">
         </div>
 
         <div>
-            <div><strong>[WAKTU] Buce:</strong> Halo gaes</div>
-            <div><strong>[WAKTU] </strong> Halo pak</div>
-            <div><strong>[WAKTU] Nada:</strong> Halo pak</div>
-            <div><strong>[WAKTU] Alvianto:</strong> Hafizh</div>
-            <div><strong>[WAKTU] Hafizh:</strong> Apaa?</div>
-            <div><strong>[WAKTU] Alvianto:</strong> Gak jadi</div>
-        </div>
-
-        <div>
-            <form method="post" action="#">
+            <form id="chat" method="post" action="chattofile.php">
                 <input type="text" name="username" placeholder="Nama Anda" required>
                 <br> <input type="text" name="message" placeholder="Ketik pesan..." required>
                 <br> <button type="submit">Kirim</button>
@@ -30,5 +26,23 @@
         </div>
         
     </div>
+    <script>
+        // AJAX
+        // Fungsi ini akan mengambil message dari filetochat.php, yang merupakan konten message di chat.txt
+        const loadMessages = async () => {
+            try {
+                const response = await fetch('filetochat.php');
+                const messages = await response.text();
+                // Ubah konten div chat box menjadi konten hasil text
+                document.getElementById('chat-box').textContent = messages;
+            } catch (error) {
+                console.error("Error loading messages:", error);
+            }
+        };
+
+        loadMessages();
+        setInterval(loadMessages, 1000);
+    </script>
 </body>
+
 </html>

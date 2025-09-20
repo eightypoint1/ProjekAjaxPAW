@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat PAW</title>
-    <!-- white-space ini diperlukan, kalau tidak nanti chatnya langsung ke sampingnya -->
+    <!-- white-space ini diperlukan, kalau tidak nanti chatnya langsung ke samping chat log yang lain -->
     <style>
         #chat-box {
             white-space: pre-wrap;
@@ -32,9 +32,9 @@
         const loadMessages = async () => {
             try {
                 const response = await fetch('filetochat.php');
-                const messages = await response.text();
+                const teks = await response.text();
                 // Ubah konten div chat box menjadi konten hasil text
-                document.getElementById('chat-box').textContent = messages;
+                document.getElementById('chat-box').textContent = teks;
             } catch (error) {
                 console.error("Error loading messages:", error);
             }
